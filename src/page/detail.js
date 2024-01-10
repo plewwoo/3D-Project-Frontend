@@ -31,6 +31,32 @@ const DetailPage = () => {
         setApiKey(key)
     }
 
+    const handleDownload = () => {
+        key = url.split("/")
+        key = key[key.length - 1]
+        fetch('http://localhost:8000' + url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/pdf',
+            },
+        })
+            .then((response) => response.blob())
+            .then((blob) => {
+                const url = window.URL.createObjectURL(
+                    new Blob([blob]),
+                );
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                    'download',
+                    `${key}`,
+                );
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
+    }
+
     return (
         <>
             <NavbarComponents />
@@ -48,6 +74,7 @@ const DetailPage = () => {
                     <InputGroup aria-label="Basic example">
                         <Button variant="primary" onClick={handleClick}>GET API Key</Button>
                         <Form.Control type="text" placeholder="API key" readOnly value={apiKey} />
+                        <Button variant="primary" onClick={handleDownload}>Download</Button>
                     </InputGroup>
                 </div>
             </Container>

@@ -1,5 +1,5 @@
 import { useState, Suspense } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, ButtonGroup } from "react-bootstrap";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, PresentationControls, Stage, OrbitControls } from "@react-three/drei";
 import Moment from 'react-moment';
@@ -20,10 +20,38 @@ const Model = ({ url }) => {
     return <primitive object={scene} />;
 };
 
+
 const CardComponents = ({ id, name, url, updated }) => {
+    let key = ""
     const navigate = useNavigate();
     console.log(url)
     const dateToFormat = new Date(updated)
+
+    const handleDownload = () => {
+        key = url.split("/")
+        key = key[key.length - 1]
+        fetch('http://localhost:8000' + url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/pdf',
+            },
+        })
+            .then((response) => response.blob())
+            .then((blob) => {
+                const url = window.URL.createObjectURL(
+                    new Blob([blob]),
+                );
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                    'download',
+                    `${key}`,
+                );
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
+    }
 
     if (name && name !== "") {
         return (
@@ -40,8 +68,10 @@ const CardComponents = ({ id, name, url, updated }) => {
                         Some quick example text to build on the card title and
                         make up the bulk of the card's content.
                     </Card.Text>
-
-                    <Link to={`detail/${id}`} state={{ id: id, name: name, url: url, updated: dateToFormat }}>Detail</Link>
+                    <ButtonGroup>
+                        <Button><Link to={`detail/${id}`} style={{ color: '#FFF', textDecoration: 'none' }} state={{ id: id, name: name, url: url, updated: dateToFormat }}>Detail</Link></Button>
+                        <Button variant="success" onClick={handleDownload}>Download</Button>
+                    </ButtonGroup>
                 </Card.Body>
                 <Card.Footer>
                     <small>

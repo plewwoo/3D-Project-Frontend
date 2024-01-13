@@ -1,14 +1,13 @@
-import { useEffect, useState, Suspense } from "react";
-import { Container, Row, Col, Card, Button, Form, ButtonGroup, InputGroup } from "react-bootstrap";
+import { useState, Suspense } from "react";
+import { Container, Button, Form, InputGroup } from "react-bootstrap";
 import NavbarComponents from "../components/navbar"
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, PresentationControls, Stage, OrbitControls, Environment } from "@react-three/drei";
+import { useGLTF, PresentationControls, OrbitControls } from "@react-three/drei";
+import * as config from "../config";
 
 const Model = ({ url }) => {
-    console.log('http://localhost:8000' + url)
-    const urls = 'http://localhost:8000' + url
-    console.log(urls)
+    const urls = url
     const { scene } = useGLTF(urls);
     return <primitive object={scene} />;
 };
@@ -34,7 +33,7 @@ const DetailPage = () => {
     const handleDownload = () => {
         key = url.split("/")
         key = key[key.length - 1]
-        fetch('http://localhost:8000' + url, {
+        fetch(`${config['config']['api']}` + url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/pdf',

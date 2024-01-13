@@ -1,12 +1,13 @@
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import * as config from "../config";
 
 const NavbarComponents = () => {
     let [username, set_username] = useState("");
 
     let get_user_data = async () => {
         let id = localStorage.getItem("user_id");
-        let res = await fetch(`http://localhost:8000/api/profile/${id}/`, {
+        let res = await fetch(`${config['config']['api']}/api/profile/${id}/`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             mode: "cors",

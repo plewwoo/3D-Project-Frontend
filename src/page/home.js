@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import CardComponents from "../components/card";
 import NavbarComponents from "../components/navbar"
+import * as config from "../config";
 
 const HomePage = () => {
     const [datas, setData] = useState([])
@@ -9,7 +10,7 @@ const HomePage = () => {
 
     const get_models = async () => {
         let user_id = localStorage.getItem("user_id");
-        let res = await fetch(`http://localhost:8000/api/models/${user_id}/`, {
+        let res = await fetch(`${config['config']['api']}/api/models/${user_id}/`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             mode: "cors",
@@ -40,7 +41,7 @@ const HomePage = () => {
             console.log('formData', formData)
 
             try {
-                const res = await fetch("http://localhost:8000/api/upload/", {
+                const res = await fetch(`${config['config']['api']}/api/upload/`, {
                     method: "POST",
                     body: formData,
                 });
@@ -70,9 +71,9 @@ const HomePage = () => {
     return (
         <>
             <NavbarComponents />
-            <Container>
-                <Row>
-                    <Col xs="auto" className="mt-5">
+            <Container key='container'>
+                <Row key='row'>
+                    <Col xs="auto" className="mt-5" key='uploader'>
                         <Card className="text-center mx-2" style={{ width: "280px", height: "350px" }}>
                             <Card.Body style={centeredStyle}>
                                 <Form.Group controlId="formFile" className="mb-3">

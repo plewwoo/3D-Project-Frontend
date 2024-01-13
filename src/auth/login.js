@@ -3,6 +3,7 @@ import * as formik from "formik";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
+import * as config from "../config";
 
 const LoginPage = () => {
     const { Formik } = formik;
@@ -21,7 +22,7 @@ const LoginPage = () => {
         if (new Date() > new Date(expires)) {
             localStorage.clear();
         } else {
-            let res = await fetch("http://localhost:8000/api/check-login/", {
+            let res = await fetch(`${config['config']['api']}/api/check-login/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 mode: "cors",
@@ -50,7 +51,7 @@ const LoginPage = () => {
             validationSchema={schema}
             onSubmit={async (values, actions) => {
                 try {
-                    let res = await fetch("http://localhost:8000/api/login/", {
+                    let res = await fetch(`${config['config']['api']}/api/login/`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         mode: "cors",

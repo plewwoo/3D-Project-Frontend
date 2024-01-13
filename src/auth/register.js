@@ -11,6 +11,7 @@ import * as formik from "formik";
 import * as yup from "yup";
 import { React } from "react";
 import Swal from "sweetalert2";
+import * as config from "../config";
 
 const RegisterPage = () => {
     const { Formik } = formik;
@@ -30,7 +31,7 @@ const RegisterPage = () => {
                 console.log(values);
                 try {
                     let res = await fetch(
-                        "http://localhost:8000/api/register/",
+                        `${config['config']['api']}/api/register/`,
                         {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },

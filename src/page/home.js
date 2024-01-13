@@ -17,28 +17,28 @@ const HomePage = () => {
         });
         let data = await res.json();
         if (res.status === 200) {
-            console.log(data)
+            // console.log(data)
             setData(data['results'])
         }
     };
 
     const handleFileChange = (e) => {
         if (e.target.files) {
-            console.log(e.target.files[0])
+            // console.log(e.target.files[0])
             setFile(e.target.files[0]);
         }
     };
 
     const handleUpload = async () => {
         if (file) {
-            console.log("Uploading file...");
+            // console.log("Uploading file...");
 
             const formData = new FormData();
             formData.append("file", file);
             formData.append("file_name", file.name);
             formData.append("user_id", localStorage.getItem("user_id"))
 
-            console.log('formData', formData)
+            // console.log('formData', formData)
 
             try {
                 const res = await fetch(`${config['config']['api']}/api/upload/`, {
@@ -48,7 +48,7 @@ const HomePage = () => {
 
                 const data = await res.json();
                 if (res.status === 201) {
-                    console.log('handleUpload', data);
+                    // console.log('handleUpload', data);
                     setData([data['results'], ...datas])
                 }
             } catch (error) {

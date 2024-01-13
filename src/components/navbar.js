@@ -6,19 +6,23 @@ const NavbarComponents = () => {
     let [username, set_username] = useState("");
 
     let get_user_data = async () => {
-        let id = localStorage.getItem("user_id");
-        let res = await fetch(`${config['config']['api']}/api/profile/${id}/`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            mode: "cors",
-        });
-        console.log(res);
-        let data = await res.json();
-        console.log(data)
-        if(data.success == true){
-            set_username(data["data"]["username"]);
-        }
-        else{
+        try {
+            let id = localStorage.getItem("user_id");
+            let res = await fetch(`${config['config']['api']}/api/profile/${id}/`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+                mode: "cors",
+            });
+            // console.log(res);
+            let data = await res.json();
+            // console.log(data)
+            if(data.success == true){
+                set_username(data["data"]["username"]);
+            }
+            else{
+                window.location.href = "/login";
+            }
+        } catch (error) {
             window.location.href = "/login";
         }
     };

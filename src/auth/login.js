@@ -29,12 +29,12 @@ const LoginPage = () => {
                 body: JSON.stringify(values),
             });
             let data = await res.json();
-            console.log(data);
+            // console.log(data);
             if (res.status === 200) {
                 window.location.href = "/";
             }
 
-            console.log(user_id, access_token, expires);
+            // console.log(user_id, access_token, expires);
         }
     };
 
@@ -58,9 +58,9 @@ const LoginPage = () => {
                         body: JSON.stringify(values),
                     });
                     let data = await res.json();
-                    console.log(res);
+                    // console.log(res);
                     if (res.status === 200) {
-                        console.log("login success :", data);
+                        // console.log("login success :", data);
                         localStorage.setItem(
                             "user_id",
                             data["data"]["user_id"]
@@ -75,7 +75,7 @@ const LoginPage = () => {
                         );
                         window.location.href = "/";
                     } else {
-                        console.log("login fail :", data);
+                        // console.log("login fail :", data);
                         Swal.fire({
                             icon: "error",
                             title: "Login Failed",

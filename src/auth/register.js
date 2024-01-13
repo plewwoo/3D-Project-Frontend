@@ -28,7 +28,7 @@ const RegisterPage = () => {
         <Formik
             validationSchema={schema}
             onSubmit={async (values, actions) => {
-                console.log(values);
+                // console.log(values);
                 try {
                     let res = await fetch(
                         `${config['config']['api']}/api/register/`,
@@ -42,7 +42,7 @@ const RegisterPage = () => {
                     let data = await res.json();
                     if (res.status === 201) {
                         if (data.success === true) {
-                            console.log("register success :", data);
+                            // console.log("register success :", data);
                             Swal.fire({
                                 icon: "success",
                                 timer: 2000,
@@ -55,7 +55,7 @@ const RegisterPage = () => {
                             });
                         }
                     } else {
-                        console.log("register fail :", data);
+                        // console.log("register fail :", data);
                         Swal.fire({
                             icon: "error",
                             title: data["message"],

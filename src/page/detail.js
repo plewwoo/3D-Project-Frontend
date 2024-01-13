@@ -14,7 +14,7 @@ const Model = ({ url }) => {
 
 const DetailPage = () => {
     const location = useLocation();
-    console.log(location.state)
+    // console.log(location.state)
     const id = location.state.id
     const name = location.state.name
     let url = location.state.url
@@ -26,7 +26,7 @@ const DetailPage = () => {
     const handleClick = () => {
         key = url.split("/")
         key = key[key.length - 1]
-        console.log(key)
+        // console.log(key)
         setApiKey(key)
     }
 

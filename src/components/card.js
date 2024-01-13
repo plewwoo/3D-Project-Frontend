@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import * as config from "../config";
 
 const Image = ({ url }) => {
-    console.log(`${config['config']['api']}` + url)
+    // console.log(`${config['config']['api']}` + url)
     const urls = `${config['config']['api']}` + url
-    console.log(urls)
+    // console.log(urls)
     return <img src={urls} />;
 };
 
@@ -22,7 +22,7 @@ const Model = ({ url }) => {
 
 const CardComponents = ({ id, name, url, updated }) => {
     let key = ""
-    console.log(url)
+    // console.log(url)
     const dateToFormat = new Date(updated)
 
     const handleDownload = () => {

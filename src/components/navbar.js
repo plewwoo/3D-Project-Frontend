@@ -15,7 +15,12 @@ const NavbarComponents = () => {
         console.log(res);
         let data = await res.json();
         console.log(data)
-        set_username(data["data"]["username"]);
+        if(data.success == true){
+            set_username(data["data"]["username"]);
+        }
+        else{
+            window.location.href = "/login";
+        }
     };
 
     useEffect(() => {

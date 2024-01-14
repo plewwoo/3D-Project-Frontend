@@ -133,11 +133,11 @@ const LoginPage = () => {
                                             isValid={!!errors.password}
                                         />
                                     </FloatingLabel>
-                                    <Form.Text id="passwordHelpBlock" muted>
+                                    {/* <Form.Text id="passwordHelpBlock" muted>
                                         <Card.Link href="#">
                                             Forget Password ?
                                         </Card.Link>
-                                    </Form.Text>
+                                    </Form.Text> */}
                                 </Form.Group>
                                 <Button
                                     variant="primary"

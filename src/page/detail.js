@@ -4,7 +4,6 @@ import NavbarComponents from "../components/navbar"
 import { useLocation } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, PresentationControls, OrbitControls } from "@react-three/drei";
-import * as config from "../config";
 
 const Model = ({ url }) => {
     const { scene } = useGLTF(url);
@@ -25,7 +24,6 @@ const DetailPage = () => {
     const handleClick = () => {
         key = url.split("/")
         key = key[key.length - 1]
-        // console.log(key)
         setApiKey(key)
     }
 

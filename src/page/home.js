@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 
 const HomePage = () => {
     const [datas, setData] = useState([])
-    const [file, setFile] = useState(null);
 
     const get_models = async () => {
         let user_id = localStorage.getItem("user_id");
@@ -23,23 +22,24 @@ const HomePage = () => {
         }
     };
 
-    const handleFileChange = (e) => {
-        if (e.target.files) {
-            // console.log(e.target.files[0])
-            setFile(e.target.files[0]);
-        }
-    };
-
-    const handleUpload = async () => {
+    const handleUpload = async (file) => {
         if (file) {
-            // console.log("Uploading file...");
+            const waitingPopup = Swal.fire({
+                title: "Uploading file...",
+                html: "Please Wait<br>",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+            console.log("Uploading file...");
 
             const formData = new FormData();
             formData.append("file", file);
             formData.append("file_name", file.name);
             formData.append("user_id", localStorage.getItem("user_id"))
 
-            // console.log('formData', formData)
+            console.log('formData', formData)
 
             try {
                 const res = await fetch(`${config['config']['api']}/api/upload/`, {
@@ -51,6 +51,7 @@ const HomePage = () => {
                 if (res.status === 201) {
                     // console.log('handleUpload', data);
                     setData([data['results'], ...datas])
+                    waitingPopup.close();
                     Swal.fire({
                         icon: "success",
                         title: "Success !!",
@@ -58,6 +59,7 @@ const HomePage = () => {
                     });
                 }
                 else {
+                    waitingPopup.close();
                     Swal.fire({
                         icon: "error",
                         title: "Fail !!",
@@ -68,6 +70,25 @@ const HomePage = () => {
                 console.error(error);
             }
         }
+        else {
+            Swal.fire({
+                icon: "error",
+                title: "Fail !!",
+                text: "File not found !",
+            });
+        }
+    };
+
+    const handleFileChange = () => {
+        Swal.fire({
+            title: "Select 3D Model",
+            input: "file",
+        }).then((result) => {
+            console.log(result.value)
+            if (result.value != null) {
+                handleUpload(result.value)
+            }
+        });
     };
 
     useEffect(() => {
@@ -90,8 +111,7 @@ const HomePage = () => {
                         <Card className="text-center mx-2" style={{ width: "280px", height: "350px" }}>
                             <Card.Body style={centeredStyle}>
                                 <Form.Group controlId="formFile" className="mb-3">
-                                    <input id="file" type="file" onChange={handleFileChange} />
-                                    {file && <Button onClick={handleUpload}>Upload a file</Button>}
+                                    <Button onClick={handleFileChange}>Upload File</Button>
                                 </Form.Group>
                             </Card.Body>
                         </Card>
@@ -101,7 +121,7 @@ const HomePage = () => {
             </Container>
         </>
     );
-    
+
 };
 export default HomePage;
 

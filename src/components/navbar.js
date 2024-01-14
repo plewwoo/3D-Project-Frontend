@@ -40,10 +40,10 @@ const NavbarComponents = () => {
                     <div className="me-auto"></div>
                     <Nav>
                         <NavDropdown title={username} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">
+                            {/* <NavDropdown.Item href="#">
                                 Profile
                             </NavDropdown.Item>
-                            <NavDropdown.Divider />
+                            <NavDropdown.Divider /> */}
                             <NavDropdown.Item
                                 href="login"
                                 onClick={() => {

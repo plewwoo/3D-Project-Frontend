@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import CardComponents from "../components/card";
 import NavbarComponents from "../components/navbar"
 import * as config from "../config";
+import Swal from "sweetalert2";
 
 const HomePage = () => {
     const [datas, setData] = useState([])
@@ -50,6 +51,18 @@ const HomePage = () => {
                 if (res.status === 201) {
                     // console.log('handleUpload', data);
                     setData([data['results'], ...datas])
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success !!",
+                        text: data["message"],
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Fail !!",
+                        text: data["message"],
+                    });
                 }
             } catch (error) {
                 console.error(error);

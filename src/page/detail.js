@@ -7,8 +7,7 @@ import { useGLTF, PresentationControls, OrbitControls } from "@react-three/drei"
 import * as config from "../config";
 
 const Model = ({ url }) => {
-    const urls = url
-    const { scene } = useGLTF(urls);
+    const { scene } = useGLTF(url);
     return <primitive object={scene} />;
 };
 
@@ -33,7 +32,7 @@ const DetailPage = () => {
     const handleDownload = () => {
         key = url.split("/")
         key = key[key.length - 1]
-        fetch(`${config['config']['api']}` + url, {
+        fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/pdf',

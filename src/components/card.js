@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Card, Button, ButtonGroup } from "react-bootstrap";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF} from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import * as config from "../config";
@@ -14,8 +14,7 @@ const Image = ({ url }) => {
 };
 
 const Model = ({ url }) => {
-    const urls = url
-    const { scene } = useGLTF(urls);
+    const { scene } = useGLTF(url);
     return <primitive object={scene} />;
 };
 
@@ -28,7 +27,7 @@ const CardComponents = ({ id, name, url, updated }) => {
     const handleDownload = () => {
         key = url.split("/")
         key = key[key.length - 1]
-        fetch(`${config['config']['api']}` + url, {
+        fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/pdf',

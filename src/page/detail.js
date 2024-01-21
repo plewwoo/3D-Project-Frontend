@@ -1,9 +1,10 @@
 import { useState, Suspense } from "react";
-import { Container, Button, Form, InputGroup } from "react-bootstrap";
+import { Container, Button, Form, InputGroup, Toast } from "react-bootstrap";
 import NavbarComponents from "../components/navbar"
 import { useLocation } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, PresentationControls, OrbitControls } from "@react-three/drei";
+import Swal from "sweetalert2";
 
 const Model = ({ url }) => {
     const { scene } = useGLTF(url);
@@ -25,6 +26,22 @@ const DetailPage = () => {
         key = url.split("/")
         key = key[key.length - 1]
         setApiKey(key)
+        navigator.clipboard.writeText(key)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Copied successfully"
+        });
     }
 
     const handleDownload = () => {

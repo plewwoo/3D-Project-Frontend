@@ -15,7 +15,7 @@ const Model = ({ url }) => {
 };
 
 
-const CardComponents = ({ id, name, url, updated }) => {
+const CardComponents = ({ id, name, url, updated, version }) => {
     let key = ""
     const dateToFormat = new Date(updated)
 
@@ -61,7 +61,7 @@ const CardComponents = ({ id, name, url, updated }) => {
                         make up the bulk of the card's content.
                     </Card.Text> */}
                     <ButtonGroup>
-                        <Button><Link to={`detail/${id}`} style={{ color: '#FFF', textDecoration: 'none' }} state={{ id: id, name: name, url: url, updated: dateToFormat }}>Detail</Link></Button>
+                        <Button><Link to={`detail/${id}`} style={{ color: '#FFF', textDecoration: 'none' }} state={{ id: id, name: name, url: url, version: version, updated: dateToFormat }}>Detail</Link></Button>
                         <Button variant="success" onClick={handleDownload}>Download</Button>
                     </ButtonGroup>
                 </Card.Body>

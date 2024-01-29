@@ -57,6 +57,7 @@ const HomePage = () => {
                         title: "Success !!",
                         text: data["message"],
                     });
+                    console.log(datas)
                 }
                 else {
                     waitingPopup.close();
@@ -116,7 +117,7 @@ const HomePage = () => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    {datas.map((d) => <Col xs="auto" className="mt-5" key={d.id}><CardComponents id={d.id} name={d.name} url={d.url} updated={d.updated} /></Col>)}
+                    {datas.map((d) => <Col xs="auto" className="mt-5" key={d.id}><CardComponents id={d.id} name={d.name} url={d.url} updated={d.updated} version={d.version} /></Col>)}
                 </Row>
             </Container>
         </>
